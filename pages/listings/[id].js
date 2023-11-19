@@ -36,10 +36,6 @@ const ListingPage = ({ listing }) => {
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    if (router.isFallback) {
-        return <div>Loading...</div>;
-    }
-
     const openFeedback = async () => {
         setIsFeedbackOpen(true);
         setIsLoading(true);
