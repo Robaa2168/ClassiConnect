@@ -97,7 +97,7 @@ function Listing({ imageUrl, productTitle, description, price, featured, _id, li
             setLikesCount(prevLikesCount => prevLikesCount - 1);
             console.error('Error liking listing:', error);
         }
-    }, [_id]);
+    }, [_id, router, user]);
 
     const recordImpression = useCallback(async () => {
         // Update the local state to provide instant feedback to the user

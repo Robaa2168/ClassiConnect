@@ -28,9 +28,7 @@ const ListingPage = ({ listing }) => {
     const router = useRouter();
     const [isChatOpen, setIsChatOpen] = useState(true); // Simulate the chat being open
     const [isInputFocused, setInputFocused] = useState(false);
-    const [messages, setMessages] = useState([
-        { id: 1, sender: 'user', text: 'Hi, is this still available?', timestamp: new Date(new Date().setHours(new Date().getHours() - 23)) },
-    ]);
+    const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [feedbacks, setFeedbacks] = useState([]);
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);

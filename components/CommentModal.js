@@ -1,5 +1,6 @@
 // components/CommentModal.js
 import { useState, useEffect, useCallback, React } from 'react';
+import Image from 'next/image';
 import { FaThumbsUp, FaThumbsDown, FaSpinner } from 'react-icons/fa';
 import Avatar from 'react-avatar';
 import { useRouter } from 'next/router';
@@ -63,7 +64,7 @@ const CommentModal = ({ listingId, comments: initialComments, productTitle, onCl
                 return updatedComments;
             });
         }
-    }, [comments, router, user]);
+    }, [comments, router, user,signOut]);
 
 
     const handleCommentChange = (event) => {
