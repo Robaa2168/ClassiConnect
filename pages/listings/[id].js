@@ -86,6 +86,13 @@ const ListingPage = ({ listing }) => {
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://your-domain.com';
 
+    useEffect(() => {
+        if (scrollRef.current) {
+            const { scrollWidth, clientWidth } = scrollRef.current;
+            setIsOverflow(scrollWidth > clientWidth);
+        }
+    }, [listing.imageUrl]);
+
     const handleThumbnailHover = (url) => {
         const index = listing.imageUrl.indexOf(url);
         if (index >= 0) {
@@ -94,12 +101,6 @@ const ListingPage = ({ listing }) => {
         }
     };
 
-    useEffect(() => {
-        if (scrollRef.current) {
-            const { scrollWidth, clientWidth } = scrollRef.current;
-            setIsOverflow(scrollWidth > clientWidth);
-        }
-    }, [listing.imageUrl]);
 
 
     const handleScroll = (direction) => {
