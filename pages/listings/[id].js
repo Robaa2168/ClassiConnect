@@ -86,7 +86,7 @@ const ListingPage = ({ listing }) => {
 
 
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://your-domain.com';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://classi-connect.vercel.app/';
 
     useEffect(() => {
         if (scrollRef.current) {

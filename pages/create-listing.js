@@ -10,7 +10,7 @@ function CreateListingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Head>
-        <title>ViewNyumba</title>
+        <title>ClassiConnect</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />

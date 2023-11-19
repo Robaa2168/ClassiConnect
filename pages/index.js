@@ -82,7 +82,7 @@ export default function Home({ listings: initialListings }) {
   return (
     <div className="flex flex-col justify-between h-screen">
       <Head>
-        <title>ViewNyumba</title>
+        <title>ClassiConnect</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Header Component */}

@@ -52,7 +52,7 @@ const Dashboard = () => {
     return (
         <div className="flex flex-col min-h-screen py-2">
           <Head>
-            <title>ViewNyumba</title>
+            <title>ClassiConnect</title>
             <link rel="icon" href="/favicon.ico" />
           </Head>
           {/* Header component, assuming it is a navigation bar or similar */}

@@ -14,7 +14,7 @@ function CreateCategoryPage() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Head>
-        <title>Create Category - ViewNyumba</title>
+        <title>Create Category - ClassiConnect</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
