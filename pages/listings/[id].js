@@ -9,7 +9,7 @@ import Header from '../../components/Header';
 import { formatDistanceToNow } from 'date-fns';
 
 export async function getServerSideProps({ params }) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/listings/${params.id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/listings/${params.id}`);
     if (!res.ok) {
         return { notFound: true };
     }

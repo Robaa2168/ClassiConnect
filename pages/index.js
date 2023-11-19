@@ -29,7 +29,7 @@ export default function Home({ listings: initialListings }) {
 
     try {
       // Fetch the comments as before
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/listings/comments?listing=${listingId}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/listings/comments?listing=${listingId}`);
       if (!response.ok) {
         throw new Error(`An error occurred: ${response.statusText}`);
       }
@@ -50,7 +50,7 @@ export default function Home({ listings: initialListings }) {
         setIsLoading(true);
         try {
           // Fetch your listings here and set them
-          const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/listings/listings`);
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/listings/listings`);
           if (!response.ok) throw new Error(response.statusText);
 
           const data = await response.json();
