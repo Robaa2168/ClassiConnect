@@ -28,11 +28,19 @@ const ListingPage = ({ listing }) => {
     const router = useRouter();
     const [isChatOpen, setIsChatOpen] = useState(true); // Simulate the chat being open
     const [isInputFocused, setInputFocused] = useState(false);
-    const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [feedbacks, setFeedbacks] = useState([]);
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [messages, setMessages] = useState([
+        { id: 1, sender: 'user', text: 'Hi, is this still available?', timestamp: new Date(new Date().setHours(new Date().getHours() - 23)) },
+        { id: 2, sender: 'seller', text: 'Yes, it is! Would you like to know more?', timestamp: new Date(new Date().setHours(new Date().getHours() - 22)) },
+        { id: 3, sender: 'user', text: 'Can you provide more details about its condition?', timestamp: new Date(new Date().setHours(new Date().getHours() - 20)) },
+        { id: 4, sender: 'seller', text: 'Sure, it’s in great condition with no scratches.', timestamp: new Date(new Date().setHours(new Date().getHours() - 18)) },
+        { id: 5, sender: 'user', text: 'Sounds good. Are you available for a viewing tomorrow?', timestamp: new Date(new Date().setHours(new Date().getHours() - 10)) },
+        { id: 6, sender: 'seller', text: 'Yes, how about 3 PM?', timestamp: new Date(new Date().setHours(new Date().getHours() - 1)) },
+        // You can add more messages as required
+      ]);
 
     const openFeedback = async () => {
         setIsFeedbackOpen(true);
