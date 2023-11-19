@@ -17,6 +17,7 @@ export async function getServerSideProps({ params }) {
     return { props: { listing } };
 }
 
+
 const ListingPage = ({ listing }) => {
     const [isMapLoaded, setIsMapLoaded] = useState(false);
     const [openLightbox, setOpenLightbox] = useState(false);
@@ -29,17 +30,15 @@ const ListingPage = ({ listing }) => {
     const [isInputFocused, setInputFocused] = useState(false);
     const [messages, setMessages] = useState([
         { id: 1, sender: 'user', text: 'Hi, is this still available?', timestamp: new Date(new Date().setHours(new Date().getHours() - 23)) },
-        { id: 2, sender: 'seller', text: 'Yes, it is! Would you like to know more?', timestamp: new Date(new Date().setHours(new Date().getHours() - 22)) },
-        { id: 3, sender: 'user', text: 'Can you provide more details about its condition?', timestamp: new Date(new Date().setHours(new Date().getHours() - 20)) },
-        { id: 4, sender: 'seller', text: 'Sure, it’s in great condition with no scratches.', timestamp: new Date(new Date().setHours(new Date().getHours() - 18)) },
-        { id: 5, sender: 'user', text: 'Sounds good. Are you available for a viewing tomorrow?', timestamp: new Date(new Date().setHours(new Date().getHours() - 10)) },
-        { id: 6, sender: 'seller', text: 'Yes, how about 3 PM?', timestamp: new Date(new Date().setHours(new Date().getHours() - 1)) },
-        // You can add more messages as required
     ]);
     const [newMessage, setNewMessage] = useState('');
     const [feedbacks, setFeedbacks] = useState([]);
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    if (router.isFallback) {
+        return <div>Loading...</div>;
+    }
 
     const openFeedback = async () => {
         setIsFeedbackOpen(true);
@@ -83,9 +82,7 @@ const ListingPage = ({ listing }) => {
         }
     };
 
-    if (router.isFallback) {
-        return <div>Loading...</div>;
-    }
+
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://your-domain.com';
 
@@ -115,10 +112,6 @@ const ListingPage = ({ listing }) => {
             }
         }
     };
-
-    if (router.isFallback) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <>
@@ -273,7 +266,14 @@ const ListingPage = ({ listing }) => {
 
                             {/* Seller Information Section */}
                             <div className="flex flex-row items-center bg-white p-4 rounded-lg shadow-sm mt-4">
-                                <img className="w-14 h-14 rounded-full border-2 border-green-500 p-1 mr-4" src="path_to_seller_image.jpg" alt="Seller" />
+                            <Image 
+  className="rounded-full border-2 border-green-500 p-1 mr-4"
+  src="/path_to_seller_image.jpg"
+  alt="Seller"
+  width={56}
+  height={56}
+  layout="fixed"
+/>
                                 <div className="flex-1 min-w-0">
                                     <h2 className="text-sm font-semibold truncate">Steve Oke ChapChap Market</h2>
                                     <p className="mt-1">

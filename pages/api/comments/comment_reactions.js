@@ -2,7 +2,7 @@
 import { connectDb } from '../../../utils/db';
 import Comment from '../../../models/commentModel';
 
-export default async function handler(req, res) {
+async function handleCommentAction(req, res) {
   const { commentId, action } = req.body; // action should be 'like' or 'dislike'
 
   if (req.method !== 'POST') {
@@ -23,3 +23,5 @@ export default async function handler(req, res) {
     res.status(500).json({ message: `An error occurred while updating the ${action} count.`, error });
   }
 }
+
+export default handleCommentAction;

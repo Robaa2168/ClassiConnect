@@ -1,6 +1,7 @@
 // components/CreateListingForm.js
 import React, { useState, useRef, useEffect, } from 'react';
 import axios from 'axios';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useAuth } from '../contexts/AuthContext';
 import { FaSpinner } from 'react-icons/fa';
@@ -49,16 +50,18 @@ function CreateListingForm() {
 
   const [formData, setFormData] = useState(initialFormData);
 
-  const handleLogout = () => {
-    signOut(); // Clears user session and redirects to login page
-  };
+  const handleLogout = useCallback(() => {
+    signOut();
+  }, []);
+  
 
 
   useEffect(() => {
     if (!user && !authLoading) {
       handleLogout();
     }
-  }, [user, authLoading]);
+  }, [user, authLoading, handleLogout]);
+  
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,

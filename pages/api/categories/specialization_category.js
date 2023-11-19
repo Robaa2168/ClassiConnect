@@ -5,7 +5,7 @@ import AirbnbSpecialization from '../../../models/AirbnbSpecialization';
 import AirbnbSubcategory from '../../../models/AirbnbSubcategory';
 import jwt from 'jsonwebtoken';
 
-export default async (req, res) => {
+const createSpecialization = async (req, res) => {
   const { method } = req;
   await connectDb();
 
@@ -29,7 +29,6 @@ export default async (req, res) => {
     }
 
     try {
-      // Check if the subcategory exists
       const subcategoryExists = await AirbnbSubcategory.findById(subcategory);
       if (!subcategoryExists) {
         return res.status(404).json({ success: false, error: 'Subcategory does not exist' });
@@ -53,3 +52,5 @@ export default async (req, res) => {
     res.status(405).json({ success: false, error: 'Method not allowed' });
   }
 };
+
+export default createSpecialization;

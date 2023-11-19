@@ -3,7 +3,7 @@
 import { connectDb } from '../../../utils/db';
 import AirbnbSubcategory from '../../../models/AirbnbSubcategory';
 
-export default async (req, res) => {
+const getSubcategories = async (req, res) => {
     const { method } = req;
     await connectDb();
 
@@ -20,3 +20,5 @@ export default async (req, res) => {
         res.status(405).json({ success: false, error: `Method ${method} not allowed` });
     }
 };
+
+export default getSubcategories;

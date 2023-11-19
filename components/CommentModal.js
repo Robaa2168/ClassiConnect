@@ -14,7 +14,7 @@ const CommentModal = ({ listingId, comments: initialComments, productTitle, onCl
     const [newComment, setNewComment] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
-    const { user } = useAuth();
+    const { user,signOut } = useAuth();
 
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const CommentModal = ({ listingId, comments: initialComments, productTitle, onCl
 
     const handleReaction = useCallback(async (action, commentId) => {
         if (!user) {
-            router.push('/users/login'); 
+            signOut();
             return;
         }
         // Find the index of the comment in the comments array.
@@ -50,9 +50,6 @@ const CommentModal = ({ listingId, comments: initialComments, productTitle, onCl
             if (!res.ok) {
                 throw new Error(`An error occurred: ${res.status}`);
             }
-
-            // If you need to do anything with the response data, do it here.
-            // ...
         } catch (error) {
             console.error(`Error during ${action} action:`, error);
 
@@ -66,7 +63,7 @@ const CommentModal = ({ listingId, comments: initialComments, productTitle, onCl
                 return updatedComments;
             });
         }
-    }, [comments]);
+    }, [comments, router, user]);
 
 
     const handleCommentChange = (event) => {
@@ -174,7 +171,14 @@ const CommentModal = ({ listingId, comments: initialComments, productTitle, onCl
                                     <div className="flex space-x-3 md:space-x-4">
                                         <div className="flex-shrink-0">
                                             {comment.avatar ? (
-                                                <img src={comment.avatar} alt="User Avatar" className="h-8 w-8 rounded-full md:h-10 md:w-10" />
+                                               <Image
+                                               src={comment.avatar}
+                                               alt="User Avatar"
+                                               width={40}
+                                               height={40}
+                                               className="rounded-full"
+                                               layout="responsive"
+                                             />
                                             ) : (
                                                 // Using the Avatar component to generate a placeholder
                                                 <Avatar
