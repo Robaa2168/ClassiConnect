@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { FaCamera, FaEye, FaChevronLeft, FaChevronRight, FaCheckCircle, FaSms, FaShoppingCart, FaComments, FaBan, FaFlag, FaTimes, FaPaperPlane,FaSpinner,FaGavel   } from 'react-icons/fa';
+import { FaCamera, FaEye, FaChevronLeft, FaChevronRight, FaCheckCircle, FaSms, FaShoppingCart, FaComments, FaBan, FaFlag, FaTimes, FaPaperPlane, FaSpinner, FaGavel } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Lightbox } from 'react-modal-image';
@@ -37,22 +37,22 @@ const ListingPage = ({ listing }) => {
     const openFeedback = async () => {
         setIsFeedbackOpen(true);
         setIsLoading(true);
-    
+
         try {
-          // Replace with your actual fetch call
-         const response = await fetch(`/api/listings/comments?listing=${listing._id}`);
-          const data = await response.json();
-          setFeedbacks(data);
-          setIsLoading(false);
+            // Replace with your actual fetch call
+            const response = await fetch(`/api/listings/comments?listing=${listing._id}`);
+            const data = await response.json();
+            setFeedbacks(data);
+            setIsLoading(false);
         } catch (error) {
-          console.error('Error fetching feedback:', error);
-          setIsLoading(false);
+            console.error('Error fetching feedback:', error);
+            setIsLoading(false);
         }
-      };
-    
-      const closeFeedback = () => {
+    };
+
+    const closeFeedback = () => {
         setIsFeedbackOpen(false);
-      };
+    };
 
     const openChat = () => {
         setIsChatOpen(true);
@@ -261,14 +261,14 @@ const ListingPage = ({ listing }) => {
 
                             {/* Seller Information Section */}
                             <div className="flex flex-row items-center bg-white p-4 rounded-lg shadow-sm mt-4">
-                            <Image 
-  className="rounded-full border-2 border-green-500 p-1 mr-4"
-  src="/path_to_seller_image.jpg"
-  alt="Seller"
-  width={56}
-  height={56}
-  layout="fixed"
-/>
+                                <Image
+                                    className="rounded-full border-2 border-green-500 p-1 mr-4"
+                                    src="/path_to_seller_image.jpg"
+                                    alt="Seller"
+                                    width={56}
+                                    height={56}
+                                    layout="fixed"
+                                />
                                 <div className="flex-1 min-w-0">
                                     <h2 className="text-sm font-semibold truncate">Steve Oke ChapChap Market</h2>
                                     <p className="mt-1">
@@ -284,11 +284,11 @@ const ListingPage = ({ listing }) => {
 
                             {/* Contact and Chat Buttons */}
                             <div className="mt-3 flex flex-col space-y-2">
-                            <button 
-    className="bg-green-500 text-white text-xs sm:text-sm font-medium py-2 px-4 rounded-lg w-full flex items-center justify-center transition duration-300 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
-    <FaShoppingCart className="mr-2" /> 
-    Make Purchase
-</button>
+                                <button
+                                    className="bg-green-500 text-white text-xs sm:text-sm font-medium py-2 px-4 rounded-lg w-full flex items-center justify-center transition duration-300 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                                    <FaShoppingCart className="mr-2" />
+                                    Make Purchase
+                                </button>
 
                                 <button onClick={openChat} className="bg-white text-green-600 border border-green-500 text-xs sm:text-sm font-medium py-2 px-4 rounded-lg w-full flex items-center justify-center transition duration-300 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
                                     <FaComments className="mr-2" />
@@ -347,13 +347,13 @@ const ListingPage = ({ listing }) => {
                                                     </button>
                                                 </div>
                                                 <div className=" md:text-right">
-  <button
-    className="border border-red-400 text-red-400 py-2 px-4 rounded hover:bg-red-50 transition duration-300 flex items-center justify-center w-full md:w-auto"
-    title="Start a dispute if you have significant issues with this transaction."
-  >
-    <FaGavel className="mr-2" /> Start a Dispute
-  </button>
-</div>
+                                                    <button
+                                                        className="border border-red-400 text-red-400 py-2 px-4 rounded hover:bg-red-50 transition duration-300 flex items-center justify-center w-full md:w-auto"
+                                                        title="Start a dispute if you have significant issues with this transaction."
+                                                    >
+                                                        <FaGavel className="mr-2" /> Start a Dispute
+                                                    </button>
+                                                </div>
 
                                             </div>
                                         </div>
@@ -376,54 +376,55 @@ const ListingPage = ({ listing }) => {
                             </div>
 
                             {isFeedbackOpen && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white w-full max-w-lg mx-4 md:mx-auto p-6 rounded-lg shadow-lg">
-          {/* Modal Header */}
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-semibold">Feedback</h2>
-            <div
-              className="rounded-full p-2 hover:bg-gray-200 cursor-pointer transition duration-300"
-              onClick={closeFeedback}
-            >
-              <FaTimes className="text-red-500" />
-            </div>
-          </div>
+                                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                                    <div className="bg-white w-full max-w-lg mx-4 md:mx-auto p-6 rounded-lg shadow-lg">
+                                        {/* Modal Header */}
+                                        <div className="flex justify-between items-center">
+                                            <h2 className="text-xl font-semibold">Feedback</h2>
+                                            <div
+                                                className="rounded-full p-2 hover:bg-gray-200 cursor-pointer transition duration-300"
+                                                onClick={closeFeedback}
+                                            >
+                                                <FaTimes className="text-red-500" />
+                                            </div>
+                                        </div>
 
-          {/* Feedback Messages */}
-          <div className="mt-3 bg-emerald-100 border-l-4 border-emerald-500 p-3 rounded">
-            <p className="text-sm text-emerald-700">
-              See what others are saying about this seller.
-            </p>
-          </div>
-          <div className="h-64 overflow-auto bg-gray-100 p-3 rounded">
-            {isLoading ? (
-              <div className="flex justify-center items-center h-full">
-                <FaSpinner className="animate-spin text-2xl text-emerald-500" />
-              </div>
-            ) : feedbacks.length > 0 ? (
-              feedbacks.map(feedback => (
-                <div key={feedback.id} className="bg-gray-200 p-3 rounded my-2">
-                  <p className="font-semibold">{feedback.username}</p>
-                  <p>{feedback.text}</p>
-                </div>
-              ))
-            ) : (
-              <p>No feedbacks yet.</p>
-            )}
-          </div>
-        </div>
-      </div>
-    )}
+                                        {/* Feedback Messages */}
+                                        <div className="mt-3 bg-emerald-100 border-l-4 border-emerald-500 p-3 rounded">
+                                            <p className="text-sm text-emerald-700">
+                                                See what others are saying about this seller.
+                                            </p>
+                                        </div>
+                                        <div className="h-64 overflow-auto bg-gray-100 p-3 rounded">
+                                            {isLoading ? (
+                                                <div className="flex justify-center items-center h-full">
+                                                    <FaSpinner className="animate-spin text-2xl text-emerald-500" />
+                                                </div>
+                                            ) : feedbacks.length > 0 ? (
+                                                feedbacks.map(feedback => (
+                                                    <div key={feedback.id} className="bg-gray-200 p-3 rounded my-2">
+                                                        <p className="font-semibold">{feedback.username}</p>
+                                                        <p>{feedback.text}</p>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <p>No feedbacks yet.</p>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
                             {/* Safety Tips Section */}
                             <div className="mt-3 bg-white p-4 rounded-lg shadow-sm">
                                 <h3 className="text-base sm:text-lg font-semibold text-gray-800">Safety tips</h3>
                                 <ul className="list-disc pl-4 text-xs sm:text-sm text-gray-600 mt-2">
-                                    <li>Remember, don't send any pre-payments</li>
+                                    <li>Remember, don&apos;t send any pre-payments</li>
                                     <li>Meet the seller at a safe public place</li>
                                     {/* More safety tips here */}
                                 </ul>
                             </div>
+
 
                             {/* Action Buttons */}
                             <div className="bg-white p-4 rounded-lg shadow-sm mt-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 justify-between">
