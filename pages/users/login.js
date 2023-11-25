@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { AiOutlineMail, AiOutlineEye, AiOutlineEyeInvisible, AiOutlineLock } from 'react-icons/ai'; // Importing icons
 import { FaSpinner } from 'react-icons/fa';
 

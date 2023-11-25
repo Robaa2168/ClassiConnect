@@ -1,6 +1,7 @@
 // pages/signup.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { AiOutlineMail, AiOutlineEye, AiOutlinePhone, AiOutlineEyeInvisible, AiOutlineLock } from 'react-icons/ai';
 import { FaSpinner } from 'react-icons/fa';
 
