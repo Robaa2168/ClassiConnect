@@ -71,23 +71,23 @@ const LoginPage = () => {
 
     return (
         <div class="min-h-screen flex items-center justify-center bg-emerald-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <div class="text-center">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-2">Sign in to your account</h2>
-            </div>
+            <div class="max-w-md w-full space-y-8">
+                <div class="text-center">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-2">Sign in to your account</h2>
+                </div>
                 <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-                {error && (
-    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-        <strong className="font-bold">Error!</strong>
-        <span className="block sm:inline"> {error}</span>
-        <span className="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onClick={() => setError(null)}>
-            <svg className="fill-current h-6 w-6 text-red-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                <title>Close</title>
-                <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 0 1 1.697 0c.461.486.461 1.211 0 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-            </svg>
-        </span>
-    </div>
-)}
+                    {error && (
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <strong className="font-bold">Error!</strong>
+                            <span className="block sm:inline"> {error}</span>
+                            <span className="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onClick={() => setError(null)}>
+                                <svg className="fill-current h-6 w-6 text-red-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <title>Close</title>
+                                    <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 0 1 1.697 0c.461.486.461 1.211 0 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                                </svg>
+                            </span>
+                        </div>
+                    )}
 
 
                     <div className="rounded-md shadow-sm -space-y-px">
@@ -155,11 +155,12 @@ const LoginPage = () => {
                         </button>
                     </div>
                     <div class="text-center">
-                <span class="text-sm sm:text-base text-gray-600">Don't have an account?</span>
-                <a href="/users/signup" class="font-medium text-emerald-600 hover:text-emerald-500 underline ml-1">
-                    Create new account
-                </a>
-            </div>
+                        <span class="text-sm sm:text-base text-gray-600">Don&apos;t have an account?
+                        </span>
+                        <Link href="/users/signup" className="font-medium text-emerald-600 hover:text-emerald-500 underline ml-1">
+                            Create new account
+                        </Link>
+                    </div>
                 </form>
             </div>
         </div>

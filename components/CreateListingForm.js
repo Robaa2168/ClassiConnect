@@ -220,8 +220,6 @@ function CreateListingForm() {
   }, []);
 
 
-  if (!isLoaded) return <div>Loading...</div>;
-
 
 
   const handleProductPlaceSelect = () => {
@@ -247,7 +245,7 @@ function CreateListingForm() {
     }));
   };
 
-
+  if (!isLoaded) return <div>Loading...</div>;
 
   return (
     <form className="w-full max-w-3xl bg-white p-8 border border-emerald-200 rounded-md shadow-md" onSubmit={handleSubmit} >

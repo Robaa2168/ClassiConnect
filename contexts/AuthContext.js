@@ -1,48 +1,38 @@
 
 // contexts/AuthContext.js
-import jwtDecode from 'jwt-decode';
-import { createContext, useState, useEffect, useContext } from 'react';
-import { useRouter } from 'next/router';
 
+import { createContext, useState, useEffect, useContext } from 'react';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
+    // Here you would check for the user's session (e.g., checking a token in the localStorage)
+    // For demonstration, we're using a timeout to simulate the delay of a request
     const session = localStorage.getItem('userSession');
-    const token = localStorage.getItem('token');
-
-    if (session && token) {
-      const decodedToken = jwtDecode(token);
-      const currentTime = Date.now() / 1000;
-
-      // Check if the token has expired
-      if (decodedToken.exp < currentTime) {
-        signOut(); // Token has expired, log out the user
-      } else {
-        setUser(JSON.parse(session));
-      }
+    
+    if (session) {
+      setUser(JSON.parse(session));
     }
 
     setLoading(false);
   }, []);
 
   const signIn = (userData) => {
+    // Here, you can authenticate the user and set the user data
+    // Setting user data in localStorage to persist the session
     localStorage.setItem('userSession', JSON.stringify(userData));
     setUser(userData);  // This updates the user state in context
 };
 
-const signOut = () => {
-  localStorage.removeItem('userSession');
-  localStorage.removeItem('token'); // Ensure the token is also removed
-  setUser(null);
-  router.push('/users/login');
-};
-
+  const signOut = () => {
+    // Here, you would handle the sign-out process, like removing the token/session from localStorage
+    localStorage.removeItem('userSession');
+    setUser(null);
+  };
 
   return (
     <AuthContext.Provider value={{ user, loading, signIn, signOut }}>
