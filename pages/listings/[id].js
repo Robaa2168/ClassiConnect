@@ -54,18 +54,18 @@ const ListingPage = ({ listing }) => {
 
     const handleDescriptionChange = (e) => {
         let newDescription = e.target.value;
-    
+
         // Truncate the input if it exceeds 200 characters
         if (newDescription.length > 200) {
             newDescription = newDescription.substring(0, 200);
         }
-    
+
         setReportDescription(newDescription);
-    
+
         // Update character count
         setWordCount(newDescription.length);
     };
-    
+
 
     const handlePostAdClick = () => {
         router.push('/users/signup');
@@ -497,7 +497,7 @@ const ListingPage = ({ listing }) => {
                         </div>
                     </div>
                     {/* Listing Details */}
-                    <div className="md:flex-1 px-4">
+                    <div className="md:flex-1 px-4 mt-4 sm:mt-0">
 
                         <div className="bg-gray-100 p-4 sm:p-6 rounded-lg shadow-md w-full max-w-md mx-auto">
                             {/* Price and Market Price Section */}
@@ -723,16 +723,16 @@ const ListingPage = ({ listing }) => {
 
                                         {/* Report Form */}
                                         <div className="mt-4">
-                                        <textarea
-    className="w-full p-2 border border-gray-300 rounded-md"
-    rows="4"
-    placeholder="Describe the issue"
-    value={reportDescription}
-    onChange={handleDescriptionChange}
-></textarea>
-<div id="wordCounter" className="text-right">{wordCount}/200</div>
+                                            <textarea
+                                                className="w-full p-2 border border-gray-300 rounded-md"
+                                                rows="4"
+                                                placeholder="Describe the issue"
+                                                value={reportDescription}
+                                                onChange={handleDescriptionChange}
+                                            ></textarea>
+                                            <div id="wordCounter" className="text-right">{wordCount}/200</div>
                                             <button
-                                                 onClick={handleReportAbuse}
+                                                onClick={handleReportAbuse}
                                                 className="mt-4 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
                                             >
                                                 Submit Report
