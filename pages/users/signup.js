@@ -1,16 +1,63 @@
 // pages/signup.js
-import { useState } from 'react';
+import { useState,useRef } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import axios from 'axios';
 import { AiOutlineMail, AiOutlineEye, AiOutlinePhone, AiOutlineEyeInvisible, AiOutlineLock } from 'react-icons/ai';
 import { FaSpinner } from 'react-icons/fa';
 
 const SignupPage = () => {
     const router = useRouter();
-    const [signupData, setSignupData] = useState({ email: '', password: '', confirmPassword: '', phoneNumber: '' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const fileInputRef = useRef(null);
+    const [signupData, setSignupData] = useState({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        phoneNumber: '',
+        firstName: '',
+        lastName: '',
+        imageUrl: [],
+    });
+
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSignupData({ ...signupData, imageUrl: file });
+        }
+    };
+
+
+
+    const removeImage = (e) => {
+        e.preventDefault();
+        setSignupData(prevSignupData => ({
+            ...prevSignupData,
+            imageUrl: null
+        }));
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ''; // Reset the file input
+        }
+    };
+
+    const uploadImages = async () => {
+        const data = new FormData();
+        data.append('file', signupData.imageUrl);
+        data.append('upload_preset', 'ml_default');
+        data.append('cloud_name', 'dx6jw8k0m');
+
+        try {
+            const response = await axios.post('https://api.cloudinary.com/v1_1/dx6jw8k0m/image/upload', data);
+            return response.data.secure_url; // Return a single URL
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            throw new Error('Failed to upload image');
+        }
+    };
+
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -28,7 +75,7 @@ const SignupPage = () => {
     const handleSignup = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setError('');  // Clear any prior errors
+        setError(''); // Clear any prior errors
 
         // Check if passwords match
         if (signupData.password !== signupData.confirmPassword) {
@@ -37,14 +84,23 @@ const SignupPage = () => {
             return;
         }
 
-        // Constructing the user data to send
-        const userData = {
-            email: signupData.email,
-            password: signupData.password,
-            phoneNumber: signupData.phoneNumber,
-        };
-
         try {
+            // Upload images first and get URLs
+            let profileImageUrl = '';
+            if (signupData.imageUrl) {
+                profileImageUrl = await uploadImages(); // Upload and get the image URL
+            }
+
+            // Constructing the user data to send
+            const userData = {
+                email: signupData.email,
+                password: signupData.password,
+                phoneNumber: signupData.phoneNumber,
+                firstName: signupData.firstName,
+                lastName: signupData.lastName,
+                profileImage: profileImageUrl,
+            };
+
             // Making an API request to the server-side endpoint
             const response = await fetch('/api/auth/signup', {
                 method: 'POST',
@@ -53,6 +109,7 @@ const SignupPage = () => {
                 },
                 body: JSON.stringify(userData),
             });
+
 
             if (!response.ok) {
                 // Check if the response is in JSON format
@@ -103,6 +160,77 @@ const SignupPage = () => {
                         </div>
                     )}
                     <div className="rounded-md shadow-sm -space-y-px">
+
+                        <label htmlFor="image" className="block text-emerald-700 text-sm font-bold mb-2 w-full">
+                            <label htmlFor="image-upload" className="block text-emerald-700 text-sm font-bold mb-2 w-full">
+                                <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 cursor-pointer hover:border-emerald-500 transition-colors">
+                                    <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H8m36-12h-4m4 0H20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                    <span className="mt-2 block text-sm font-medium text-gray-900">
+                                        upload profile picture
+                                    </span>
+                                    <input
+                                        ref={fileInputRef} // Attach the ref here
+                                        id="image-upload"
+                                        type="file"
+                                        name="image"
+                                        onChange={handleFileChange}
+                                        className="hidden"
+                                    />
+                                </div>
+                            </label>
+                        </label>
+
+
+                        <div className="mt-4 flex flex-wrap justify-start items-center w-full">
+                            {signupData.imageUrl instanceof File && (
+                                <div className="flex flex-col items-center mr-4 mb-4">
+                                    <img src={URL.createObjectURL(signupData.imageUrl)} alt="Uploaded image" className="w-16 h-16 object-cover rounded-md" />
+                                    <button onClick={(e) => removeImage(e)} className="mt-2 text-red-500">
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Grid Container for First and Last Name */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            {/* First Name Input Field */}
+                            <div className="relative">
+                                <label htmlFor="first-name" className="sr-only">First Name</label>
+                                <input
+                                    id="first-name"
+                                    name="firstName"
+                                    type="text"
+                                    required
+                                    className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                                    placeholder="First Name"
+                                    value={signupData.firstName}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+
+                            {/* Last Name Input Field */}
+                            <div className="relative">
+                                <label htmlFor="last-name" className="sr-only">Last Name</label>
+                                <input
+                                    id="last-name"
+                                    name="lastName"
+                                    type="text"
+                                    
+                                    className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                                    placeholder="Last Name"
+                                    value={signupData.lastName}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="h-5"></div>
+
                         <div className="mb-4 relative">
                             <label htmlFor="email-address" className="sr-only">Email address</label>
                             <AiOutlineMail className="absolute top-3 left-3 text-emerald-500" size="1.25em" />
@@ -118,6 +246,7 @@ const SignupPage = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
+                        <div className="h-5"></div>
 
                         <div className="mb-4 relative">
                             <label htmlFor="phone-number" className="sr-only">Phone Number</label>

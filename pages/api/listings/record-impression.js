@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const { listingId } = req.body;
 
   if (req.method !== 'POST') {
-    return res.status(405).end();  // Method Not Allowed
+    return res.status(405).end(); 
   }
 
   if (!listingId) {

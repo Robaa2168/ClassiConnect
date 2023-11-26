@@ -8,6 +8,21 @@ const AirbnbCloneUserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  firstName: {
+    type: String,
+    required: true,
+    default: 'DefaultFirstName', // Dummy default value
+  },
+  lastName: {
+    type: String,
+    required: true,
+    default: 'DefaultLastName', // Dummy default value
+  },
+  profileImage: {
+    type: String,
+    required: false,
+    default: 'https://example.com/default-image.jpg', // Dummy default image URL
+  },
   email: {
     type: String,
     required: true,
@@ -25,32 +40,26 @@ const AirbnbCloneUserSchema = new mongoose.Schema({
   phoneNumber: {
     type: String,
     unique: true,
-    trim: true, 
+    trim: true,
   },
   otp: {
-    type: String, 
+    type: String,
     required: false,
   },
   referralCode: {
     type: String,
-    required: false, 
+    required: false,
   },
   uniqueId: {
     type: String,
     required: true,
     unique: true,
   },
-}, 
-{
-  timestamps: true, 
-});
+},
+  {
+    timestamps: true,
+  });
 
 // Check if the model has already been defined
-let AirbnbCloneUser;
-if (mongoose.models.AirbnbCloneUser) {
-    AirbnbCloneUser = mongoose.model('AirbnbCloneUser');
-} else {
-    AirbnbCloneUser = mongoose.model('AirbnbCloneUser', AirbnbCloneUserSchema);
-}
-
+const AirbnbCloneUser = mongoose.models.AirbnbCloneUser || mongoose.model('AirbnbCloneUser', AirbnbCloneUserSchema);
 module.exports = AirbnbCloneUser;
