@@ -113,7 +113,7 @@ function Header() {
                             </Link>
 
                             {user ? (
-                                <Link href="/dashboard" className="flex items-center text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-700">
+                                <Link href="/users/dashboard" className="flex items-center text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-700">
                                     {/* You can replace the icon here as necessary */}
                                     <FiUser className="mr-1 h-5 w-5" /> Dashboard
                                 </Link>
