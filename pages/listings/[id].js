@@ -7,8 +7,8 @@ import Head from 'next/head';
 import { Lightbox } from 'react-modal-image';
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import Header from '../../components/Header';
-import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from '../../contexts/AuthContext';
+import Chat from '../../components/Chat';
 
 export async function getServerSideProps({ params }) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/listings/${params.id}`);
@@ -29,8 +29,7 @@ const ListingPage = ({ listing }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollRef = useRef(null);
     const router = useRouter();
-    const [isChatOpen, setIsChatOpen] = useState(true);
-    const [isInputFocused, setInputFocused] = useState(false);
+    const [isChatOpen, setisChatOpen] = useState(false);
     const [newMessage, setNewMessage] = useState('');
     const [feedbacks, setFeedbacks] = useState([]);
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
@@ -101,26 +100,14 @@ const ListingPage = ({ listing }) => {
     };
 
     const openChat = () => {
-        setIsChatOpen(true);
+        setisChatOpen(true);
     };
 
     const closeChat = () => {
-        setIsChatOpen(false);
+        setisChatOpen(false);
     };
 
-    const handleSendMessage = () => {
-        // Add functionality to handle sending a message
-        if (newMessage.trim()) {
-            const newMsg = {
-                id: messages.length + 1,
-                sender: 'user',
-                text: newMessage,
-                timestamp: new Date()
-            };
-            setMessages([...messages, newMsg]);
-            setNewMessage('');
-        }
-    };
+
 
 
 
@@ -550,76 +537,17 @@ const ListingPage = ({ listing }) => {
                                     Make Purchase
                                 </button>
 
-                                <button onClick={openChat} className="bg-white text-green-600 border border-green-500 text-xs sm:text-sm font-medium py-2 px-4 rounded-lg w-full flex items-center justify-center transition duration-300 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 ">
+                                <button
+                                    onClick={openChat}
+                                    className="bg-white text-green-600 border border-green-500 text-xs sm:text-sm font-medium py-2 px-4 rounded-lg w-full flex items-center justify-center transition duration-300 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
                                     <FaComments className="mr-2" />
                                     Start chat
                                 </button>
-                                {isChatOpen && (
-                                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                                        <div className="bg-white w-full max-w-lg mx-4 md:mx-auto p-6 rounded-lg shadow-lg">
-                                            <div className="flex flex-col space-y-4">
-                                                <div className="flex justify-between items-center">
-                                                    <h2 className="text-xl font-semibold">Chat with Seller</h2>
-                                                    <div
-                                                        className="rounded-full p-2 hover:bg-gray-200 cursor-pointer transition duration-300"
-                                                        onClick={closeChat}
-                                                    >
-                                                        <FaTimes className="text-red-500" />
-                                                    </div>
-                                                </div>
 
-                                                {/* Pinned Advisory Message */}
-                                                <div className="bg-emerald-100 border-l-4 border-emerald-500 p-3 rounded">
-                                                    <p className="text-sm text-emerald-700">
-                                                        Reminder: Stay safe! Chat within this platform to avoid potential fraud. We cannot assist with disputes arising from external communications.
-                                                    </p>
-                                                </div>
+                                {/* Chat Component */}
+                                <Chat isOpen={isChatOpen} closeChat={closeChat} listing={listing} />
 
-                                                {/* Chat Messages */}
-                                                <div className="w-full max-w-lg h-64 overflow-auto bg-gray-100 p-3 rounded">
-                                                    {messages.map((msg) => (
-                                                        <div key={msg.id} className={`text-sm p-2 rounded my-1 ${msg.sender === 'user' ? 'bg-emerald-100' : 'bg-gray-200'}`}>
-                                                            <p>{msg.text}</p>
-                                                            <span className="text-xs text-gray-500 block text-right">
-                                                                {formatDistanceToNow(msg.timestamp, { addSuffix: true })}
-                                                            </span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-
-                                                {/* Message Input */}
-                                                <div className="flex">
-                                                    <input
-                                                        type="text"
-                                                        value={newMessage}
-                                                        onChange={(e) => setNewMessage(e.target.value)}
-                                                        className={`flex-1 p-2 border border-gray-300 rounded-l-lg focus:outline-none ${isInputFocused ? 'ring-2 ring-emerald-200' : ''}`}
-                                                        placeholder="Type your message..."
-                                                        onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                                                        onFocus={() => setInputFocused(true)}
-                                                        onBlur={() => setInputFocused(false)}
-                                                    />
-                                                    <button
-                                                        onClick={handleSendMessage}
-                                                        className={`bg-emerald-100 text-emerald-600 py-2 px-4 rounded-r-lg hover:bg-emerald-200 transition duration-300 flex items-center justify-center ${isInputFocused ? 'ring-2 ring-emerald-200' : ''}`}
-                                                    >
-                                                        <FaPaperPlane />
-                                                    </button>
-                                                </div>
-                                                <div className=" md:text-right">
-                                                    <button
-                                                        className="border border-red-400 text-red-400 py-2 px-4 rounded hover:bg-red-50 transition duration-300 flex items-center justify-center w-fullsm:w-auto text-xs sm:text-sm whitespace-nowrap"
-                                                        title="Start a dispute if you have significant issues with this transaction."
-                                                    >
-                                                        <FaGavel className="mr-2" /> Start a Dispute
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
+                               
                             </div>
 
                             {/* Feedback Section */}
