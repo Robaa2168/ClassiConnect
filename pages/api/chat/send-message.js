@@ -26,14 +26,14 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-        const { message, receiver } = req.body;
-        if (!message || !receiver) {
-            return res.status(400).json({ message: 'Message and receiver are required' });
+        const { message, receiver, listingId } = req.body;
+        if (!message || !receiver || !listingId) {
+            return res.status(400).json({ message: 'Message, receiver, and listingId are required' });
         }
 
-        const newMessage = new ChatMessage({ sender: userId, receiver, message });
+        const newMessage = new ChatMessage({ sender: userId, receiver, message, listing: listingId });
         await newMessage.save();
-        return res.status(200).json(newMessage); // You might want to populate or transform this object as needed
+        return res.status(200).json(newMessage);
     } else {
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }

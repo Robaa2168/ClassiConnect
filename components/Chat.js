@@ -27,11 +27,11 @@ const Chat = ({ isOpen, closeChat, listing }) => {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-
+    
             if (!response.ok) {
                 throw new Error('Failed to fetch messages');
             }
-
+    
             const fetchedMessages = await response.json();
             const formattedMessages = fetchedMessages.map(msg => ({
                 id: msg._id,
@@ -48,6 +48,7 @@ const Chat = ({ isOpen, closeChat, listing }) => {
             setIsLoading(false);
         }
     };
+    
 
     const handleSendMessage = async () => {
         if (!newMessage.trim()) return;
@@ -75,6 +76,7 @@ const Chat = ({ isOpen, closeChat, listing }) => {
                 body: JSON.stringify({
                     message: newMessage,
                     receiver: listing.seller,
+                    listingId: listing._id
                 }),
             });
 
