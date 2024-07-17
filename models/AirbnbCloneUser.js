@@ -11,17 +11,15 @@ const AirbnbCloneUserSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
-    default: 'DefaultFirstName', // Dummy default value
   },
   lastName: {
     type: String,
     required: true,
-    default: 'DefaultLastName', // Dummy default value
   },
   profileImage: {
     type: String,
     required: false,
-    default: 'https://example.com/default-image.jpg', // Dummy default image URL
+    default: 'https://example.com/default-image.jpg',
   },
   email: {
     type: String,

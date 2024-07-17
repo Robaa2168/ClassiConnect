@@ -102,7 +102,7 @@ export default function Home({ listings: initialListings }) {
               key={listing._id}
               className="relative rounded-lg overflow-hidden shadow-lg"
               whileHover={{ scale: 1.05, boxShadow: "0px 3px 3px rgba(0,0,0,0.15)" }}  // Enhanced shadow effect on hover
-              whileTap={{ scale: 1 }}  // Slight shrink effect while tapping/clicking
+              whileTap={{ scale: 1 }} 
               transition={{ type: "spring", stiffness: 100 }}  // Smoother transition effect
             >
 
