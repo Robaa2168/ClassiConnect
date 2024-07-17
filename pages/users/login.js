@@ -60,7 +60,7 @@ const LoginPage = () => {
             localStorage.setItem('token', data.token);
             signIn(data.user);
 
-            router.push('/users/dashboard');
+            router.push('/');
         } catch (error) {
             setError(error.message);
         } finally {
